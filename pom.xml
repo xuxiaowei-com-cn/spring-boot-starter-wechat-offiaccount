@@ -9,12 +9,12 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>cn.com.xuxiaowei.boot</groupId>
-    <artifactId>spring-boot-starter-webchat-offiaccount</artifactId>
+    <artifactId>spring-boot-starter-wechat-offiaccount</artifactId>
     <version>0.0.1-SNAPSHOT</version>
 
-    <name>spring-boot-starter-webchat-offiaccount</name>
+    <name>spring-boot-starter-wechat-offiaccount</name>
     <description>支持 OAuth 2.1 JWT 授权的微信公众平台开发组件</description>
-    <url>https://github.com/xuxiaowei-com-cn/spring-boot-starter-webchat-offiaccount</url>
+    <url>https://github.com/xuxiaowei-com-cn/spring-boot-starter-wechat-offiaccount</url>
     <inceptionYear>2022</inceptionYear>
 
     <properties>
@@ -98,15 +98,15 @@
     </licenses>
 
     <scm>
-        <url>https://github.com/xuxiaowei-com-cn/spring-boot-starter-webchat-offiaccount</url>
-        <connection>scm:git:https://git@github.com/xuxiaowei-com-cn/spring-boot-starter-webchat-offiaccount.git
+        <url>https://github.com/xuxiaowei-com-cn/spring-boot-starter-wechat-offiaccount</url>
+        <connection>scm:git:https://git@github.com/xuxiaowei-com-cn/spring-boot-starter-wechat-offiaccount.git
         </connection>
         <developerConnection>http://xuxiaowei.com.cn</developerConnection>
     </scm>
 
     <issueManagement>
         <system>Github</system>
-        <url>https://github.com/xuxiaowei-com-cn/spring-boot-starter-webchat-offiaccount/issues</url>
+        <url>https://github.com/xuxiaowei-com-cn/spring-boot-starter-wechat-offiaccount/issues</url>
     </issueManagement>
 
     <organization>
