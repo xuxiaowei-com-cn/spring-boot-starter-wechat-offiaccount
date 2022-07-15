@@ -1,5 +1,5 @@
 <div align="center" style="text-align: center;">
-    <h1>spring-boot-starter-webchat-offiaccount</h1>
+    <h1>spring-boot-starter-wechat-offiaccount</h1>
     <h3>支持 OAuth 2.1 JWT 授权的微信公众平台开发组件</h3>
     <a target="_blank" href="https://github.com/996icu/996.ICU/blob/master/LICENSE">
         <img alt="License-Anti" src="https://img.shields.io/badge/License-Anti 996-blue.svg">
@@ -48,51 +48,51 @@
     <img alt="IntelliJ IDEA" src="https://img.shields.io/static/v1?logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAAAAAByaaZbAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAAmJLR0QA/4ePzL8AAAAHdElNRQfmBRkBICRBfW8eAAABPklEQVRIx+2UTStEYRiGr/kqZWaKMoyQUsoCWdn4AZKPlZSF5fgPVhYWStlZqPkB7GynWSg/QCmhUFOUGCPNZBrlnNtijmneOYZzykrn2p2e536f577P2wsBPvmQlACQg13Mr4b9CCTpuMunQIdGT8gQRCBZAQRPu0B6aRjsvqKXCRcAJO8lTTf3/GQJKF8Bz5481CfMvEnnxtrRduKhPET7R6GWka+UrBW//8Hej3haqZQFYgNz8VDmYbNNT8iSFDdMM1iSyh3uWHsAesNgVc1D7k4hMeISrN0uAOtAwTYF6Smg2UQUYDYbO8qdjS0Cua9CahsgPd8NleuW3WOFRiTV+nTj8mnL5XbixinVlnEJ7L1vkuzcuJT0ejDufL98UTjZmWyJsqFJvT9aBAT8J5zrrXYFF788xn8gCPDCJ2cr3I1zqSjOAAAAJXRFWHRkYXRlOmNyZWF0ZQAyMDIyLTA1LTI1VDAxOjMyOjM2KzAwOjAwH/0yeQAAACV0RVh0ZGF0ZTptb2RpZnkAMjAyMi0wNS0yNVQwMTozMjozNiswMDowMG6gisUAAAAASUVORK5CYII=&message=IntelliJ IDEA">
   </a>
 
-  <a target="_blank" href="https://github.com/xuxiaowei-com-cn/spring-boot-starter-webchat-offiaccount">
-    <img alt="GitHub stars" src="https://img.shields.io/github/stars/xuxiaowei-com-cn/spring-boot-starter-webchat-offiaccount?logo=github">
+  <a target="_blank" href="https://github.com/xuxiaowei-com-cn/spring-boot-starter-wechat-offiaccount">
+    <img alt="GitHub stars" src="https://img.shields.io/github/stars/xuxiaowei-com-cn/spring-boot-starter-wechat-offiaccount?logo=github">
   </a>
 
-  <a target="_blank" href="https://github.com/xuxiaowei-com-cn/spring-boot-starter-webchat-offiaccount">
-    <img alt="GitHub forks" src="https://img.shields.io/github/forks/xuxiaowei-com-cn/spring-boot-starter-webchat-offiaccount?logo=github">
+  <a target="_blank" href="https://github.com/xuxiaowei-com-cn/spring-boot-starter-wechat-offiaccount">
+    <img alt="GitHub forks" src="https://img.shields.io/github/forks/xuxiaowei-com-cn/spring-boot-starter-wechat-offiaccount?logo=github">
   </a>
 
-  <a target="_blank" href="https://github.com/xuxiaowei-com-cn/spring-boot-starter-webchat-offiaccount">
-    <img alt="GitHub watchers" src="https://img.shields.io/github/watchers/xuxiaowei-com-cn/spring-boot-starter-webchat-offiaccount?logo=github">
+  <a target="_blank" href="https://github.com/xuxiaowei-com-cn/spring-boot-starter-wechat-offiaccount">
+    <img alt="GitHub watchers" src="https://img.shields.io/github/watchers/xuxiaowei-com-cn/spring-boot-starter-wechat-offiaccount?logo=github">
   </a>
 
-  <a target="_blank" href="https://github.com/xuxiaowei-com-cn/spring-boot-starter-webchat-offiaccount">
-    <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/xuxiaowei-com-cn/spring-boot-starter-webchat-offiaccount">
+  <a target="_blank" href="https://github.com/xuxiaowei-com-cn/spring-boot-starter-wechat-offiaccount">
+    <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/xuxiaowei-com-cn/spring-boot-starter-wechat-offiaccount">
   </a>
 
-  <a target="_blank" href="https://gitee.com/xuxiaowei-com-cn/spring-boot-starter-webchat-offiaccount">
-    <img alt="码云Gitee stars" src="https://gitee.com/xuxiaowei-com-cn/spring-boot-starter-webchat-offiaccount/badge/star.svg?theme=blue">
+  <a target="_blank" href="https://gitee.com/xuxiaowei-com-cn/spring-boot-starter-wechat-offiaccount">
+    <img alt="码云Gitee stars" src="https://gitee.com/xuxiaowei-com-cn/spring-boot-starter-wechat-offiaccount/badge/star.svg?theme=blue">
   </a>
 
-  <a target="_blank" href="https://gitee.com/xuxiaowei-com-cn/spring-boot-starter-webchat-offiaccount">
-    <img alt="码云Gitee forks" src="https://gitee.com/xuxiaowei-com-cn/spring-boot-starter-webchat-offiaccount/badge/fork.svg?theme=blue">
+  <a target="_blank" href="https://gitee.com/xuxiaowei-com-cn/spring-boot-starter-wechat-offiaccount">
+    <img alt="码云Gitee forks" src="https://gitee.com/xuxiaowei-com-cn/spring-boot-starter-wechat-offiaccount/badge/fork.svg?theme=blue">
   </a>
 
-  <a target="_blank" href="https://gitlab.com/xuxiaowei-com-cn/spring-boot-starter-webchat-offiaccount">
-    <img alt="Gitlab stars" src="https://badgen.net/gitlab/stars/xuxiaowei-com-cn/spring-boot-starter-webchat-offiaccount?icon=gitlab">
+  <a target="_blank" href="https://gitlab.com/xuxiaowei-com-cn/spring-boot-starter-wechat-offiaccount">
+    <img alt="Gitlab stars" src="https://badgen.net/gitlab/stars/xuxiaowei-com-cn/spring-boot-starter-wechat-offiaccount?icon=gitlab">
   </a>
 
-  <a target="_blank" href="https://gitlab.com/xuxiaowei-com-cn/spring-boot-starter-webchat-offiaccount">
-    <img alt="Gitlab forks" src="https://badgen.net/gitlab/forks/xuxiaowei-com-cn/spring-boot-starter-webchat-offiaccount?icon=gitlab">
+  <a target="_blank" href="https://gitlab.com/xuxiaowei-com-cn/spring-boot-starter-wechat-offiaccount">
+    <img alt="Gitlab forks" src="https://badgen.net/gitlab/forks/xuxiaowei-com-cn/spring-boot-starter-wechat-offiaccount?icon=gitlab">
   </a>
 
-  <a target="_blank" href="https://gitlab.com/xuxiaowei-com-cn/spring-boot-starter-webchat-offiaccount">
-    <img alt="OSCS Status" src="https://www.oscs1024.com/platform/badge/xuxiaowei-com-cn/spring-boot-starter-webchat-offiaccount.svg?size=small">
+  <a target="_blank" href="https://gitlab.com/xuxiaowei-com-cn/spring-boot-starter-wechat-offiaccount">
+    <img alt="OSCS Status" src="https://www.oscs1024.com/platform/badge/xuxiaowei-com-cn/spring-boot-starter-wechat-offiaccount.svg?size=small">
   </a>
 
-  <a target="_blank" href="https://github.com/xuxiaowei-com-cn/spring-boot-starter-webchat-offiaccount">
-    <img alt="total lines" src="https://tokei.rs/b1/github/xuxiaowei-com-cn/spring-boot-starter-webchat-offiaccount">
+  <a target="_blank" href="https://github.com/xuxiaowei-com-cn/spring-boot-starter-wechat-offiaccount">
+    <img alt="total lines" src="https://tokei.rs/b1/github/xuxiaowei-com-cn/spring-boot-starter-wechat-offiaccount">
   </a>
 
-  <a target="_blank" href="https://github.com/xuxiaowei-com-cn/spring-boot-starter-webchat-offiaccount/blob/main/pom.xml">
+  <a target="_blank" href="https://github.com/xuxiaowei-com-cn/spring-boot-starter-wechat-offiaccount/blob/main/pom.xml">
     <img alt="Spring Boot" src="https://img.shields.io/static/v1?logo=Spring Boot&message=2.7.x&color=blue">
   </a>
 
-  <a target="_blank" href="https://github.com/xuxiaowei-com-cn/spring-boot-starter-webchat-offiaccount/blob/main/pom.xml">
+  <a target="_blank" href="https://github.com/xuxiaowei-com-cn/spring-boot-starter-wechat-offiaccount/blob/main/pom.xml">
     <img alt="OAuth 2.1" src="https://img.shields.io/static/v1?label=OAuth 2.1&message=0.3.1&color=blue">
   </a>
 
@@ -136,4 +136,4 @@ mvn spring-javaformat:apply
 
 ## Stargazers over time
 
-[![Stargazers over time](https://starchart.cc/xuxiaowei-com-cn/spring-boot-starter-webchat-offiaccount.svg)](https://starchart.cc/xuxiaowei-com-cn/spring-boot-starter-webchat-offiaccount)
+[![Stargazers over time](https://starchart.cc/xuxiaowei-com-cn/spring-boot-starter-wechat-offiaccount.svg)](https://starchart.cc/xuxiaowei-com-cn/spring-boot-starter-wechat-offiaccount)
