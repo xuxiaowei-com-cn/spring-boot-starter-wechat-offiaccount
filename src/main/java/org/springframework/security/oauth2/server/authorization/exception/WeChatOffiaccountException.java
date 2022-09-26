@@ -8,8 +8,8 @@ package org.springframework.security.oauth2.server.authorization.exception;
  */
 public class WeChatOffiaccountException extends RuntimeException {
 
-    public WeChatOffiaccountException(String message) {
-        super(message);
-    }
+	public WeChatOffiaccountException(String message) {
+		super(message);
+	}
 
 }

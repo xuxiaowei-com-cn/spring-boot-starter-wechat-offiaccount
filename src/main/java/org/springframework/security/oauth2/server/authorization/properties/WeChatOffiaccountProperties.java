@@ -61,6 +61,16 @@ public class WeChatOffiaccountProperties {
 		 */
 		private String clientSecret;
 
+		/**
+		 * 获取 Token URL 前缀
+		 */
+		private String tokenUrlPrefix;
+
+		/**
+		 * 授权范围
+		 */
+		private String scope;
+
 	}
 
 }

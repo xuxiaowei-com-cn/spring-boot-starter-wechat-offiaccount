@@ -37,6 +37,11 @@ public class WeChatOffiaccountTokenResponse implements Serializable {
 	private String refreshToken;
 
 	/**
+	 * 授权范围
+	 */
+	private String scope;
+
+	/**
 	 * 用户唯一标识，请注意，在未关注公众号时，用户访问公众号的网页，也会产生一个用户和公众号唯一的OpenID
 	 */
 	private String openid;

@@ -4,12 +4,13 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.security.oauth2.server.authorization.exception.AppidWeChatOffiaccountException;
-import org.springframework.security.oauth2.server.authorization.exception.SecretWeChatOffiaccountException;
 import org.springframework.security.oauth2.server.authorization.properties.WeChatOffiaccountProperties;
 import org.springframework.stereotype.Component;
 import org.springframework.util.AntPathMatcher;
-import org.springframework.util.StringUtils;
 import org.springframework.web.client.RestTemplate;
 
 import javax.servlet.FilterChain;
@@ -38,7 +39,7 @@ public class WeChatOffiaccountCodeHttpFilter extends HttpFilter {
 
 	public static final String PREFIX_URL = "/wechat-offiaccount/code";
 
-	public static final String ACCESS_TOKEN_URL = "https://api.weixin.qq.com/sns/oauth2/access_token?appid={appid}&secret={secret}&code={code}&grant_type=authorization_code";
+	public static final String TOKEN_URL = "/oauth2/token?grant_type={grant_type}&appid={appid}&code={code}&state={state}&client_id={client_id}&client_secret={client_secret}";
 
 	private String prefixUrl = PREFIX_URL;
 
@@ -62,38 +63,53 @@ public class WeChatOffiaccountCodeHttpFilter extends HttpFilter {
 			String appid = requestUri.replace(prefixUrl + "/", "");
 			String code = request.getParameter("code");
 			String state = request.getParameter("state");
+			String grantType = "wechat_offiaccount";
 
-			response.sendRedirect("/oauth2/token?grant_type=wechat-offiaccount&appid=" + appid + "&code=" + code);
+			String clientId = null;
+			String clientSecret = null;
+			String tokenUrlPrefix = null;
+			String scope = null;
+			List<WeChatOffiaccountProperties.WeChatOffiaccount> list = weChatOffiaccountProperties.getList();
+			if (list == null) {
+				throw new AppidWeChatOffiaccountException("appid 未配置");
+			}
 
-//			List<WeChatOffiaccountProperties.WeChatOffiaccount> list = weChatOffiaccountProperties.getList();
-//			if (list == null) {
-//				throw new AppidWeChatOffiaccountException("appid 未配置");
-//			}
-//
-//			String secret = null;
-//			boolean include = false;
-//			for (WeChatOffiaccountProperties.WeChatOffiaccount weChatOffiaccount : list) {
-//				if (appid.equals(weChatOffiaccount.getAppid())) {
-//					include = true;
-//					secret = weChatOffiaccount.getSecret();
-//					if (!StringUtils.hasText(secret)) {
-//						throw new SecretWeChatOffiaccountException("secret 不能为空");
-//					}
-//				}
-//			}
-//
-//			if (!include) {
-//				throw new AppidWeChatOffiaccountException("未匹配到 appid");
-//			}
-//
-//			RestTemplate restTemplate = new RestTemplate();
-//			Map<String, String> uriVariables = new HashMap<>(8);
-//			uriVariables.put("appid", appid);
-//			uriVariables.put("secret", secret);
-//			uriVariables.put("code", code);
-//			String forObject = restTemplate.getForObject(ACCESS_TOKEN_URL, String.class, uriVariables);
-//
-//			log.info(forObject);
+			boolean include = false;
+			for (WeChatOffiaccountProperties.WeChatOffiaccount weChatOffiaccount : list) {
+				if (appid.equals(weChatOffiaccount.getAppid())) {
+					include = true;
+					clientId = weChatOffiaccount.getClientId();
+					clientSecret = weChatOffiaccount.getClientSecret();
+					tokenUrlPrefix = weChatOffiaccount.getTokenUrlPrefix();
+					scope = weChatOffiaccount.getScope();
+				}
+			}
+
+			if (!include) {
+				throw new AppidWeChatOffiaccountException("未匹配到 appid");
+			}
+
+			RestTemplate restTemplate = new RestTemplate();
+			Map<String, String> uriVariables = new HashMap<>(8);
+			uriVariables.put("grant_type", grantType);
+			uriVariables.put("appid", appid);
+			uriVariables.put("code", code);
+			uriVariables.put("state", state);
+			uriVariables.put("scope", scope);
+			uriVariables.put("client_id", clientId);
+			uriVariables.put("client_secret", clientSecret);
+
+			HttpHeaders httpHeaders = new HttpHeaders();
+			httpHeaders.setContentType(MediaType.APPLICATION_JSON);
+			HttpEntity<?> httpEntity = new HttpEntity<>(httpHeaders);
+
+			@SuppressWarnings("all")
+			Map<String, String> post = restTemplate.postForObject(tokenUrlPrefix + TOKEN_URL, httpEntity, Map.class,
+					uriVariables);
+
+			String accessToken = post.get("access_token");
+
+			response.sendRedirect("http://a.com?access_token=" + accessToken);
 
 			return;
 		}

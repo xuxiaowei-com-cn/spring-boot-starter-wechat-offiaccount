@@ -8,8 +8,8 @@ package org.springframework.security.oauth2.server.authorization.exception;
  */
 public class RedirectUriWeChatOffiaccountException extends WeChatOffiaccountException {
 
-    public RedirectUriWeChatOffiaccountException(String message) {
-        super(message);
-    }
+	public RedirectUriWeChatOffiaccountException(String message) {
+		super(message);
+	}
 
 }
