@@ -48,6 +48,12 @@ public class OAuth2WeChatOffiaccountAuthenticationToken extends OAuth2Authorizat
 	@Getter
 	private final String scope;
 
+	@Getter
+	private final String remoteAddress;
+
+	@Getter
+	private final String sessionId;
+
 	/**
 	 * 子类构造函数。
 	 * @param clientPrincipal 经过身份验证的客户端主体
@@ -57,13 +63,16 @@ public class OAuth2WeChatOffiaccountAuthenticationToken extends OAuth2Authorizat
 	 * @param scope {@link OAuth2ParameterNames#SCOPE}
 	 */
 	public OAuth2WeChatOffiaccountAuthenticationToken(Authentication clientPrincipal,
-			Map<String, Object> additionalParameters, String appid, String code, String scope) {
+			Map<String, Object> additionalParameters, String appid, String code, String scope, String remoteAddress,
+			String sessionId) {
 		super(OAuth2WeChatOffiaccountAuthenticationToken.WECHAT_OFFIACCOUNT, clientPrincipal, additionalParameters);
 		Assert.hasText(code, "appid 不能为空");
 		Assert.hasText(code, "code 不能为空");
 		this.appid = appid;
 		this.code = code;
 		this.scope = scope;
+		this.remoteAddress = remoteAddress;
+		this.sessionId = sessionId;
 	}
 
 }

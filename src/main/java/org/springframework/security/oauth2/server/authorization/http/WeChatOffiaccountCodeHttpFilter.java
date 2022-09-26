@@ -18,6 +18,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
@@ -39,7 +40,7 @@ public class WeChatOffiaccountCodeHttpFilter extends HttpFilter {
 
 	public static final String PREFIX_URL = "/wechat-offiaccount/code";
 
-	public static final String TOKEN_URL = "/oauth2/token?grant_type={grant_type}&appid={appid}&code={code}&state={state}&client_id={client_id}&client_secret={client_secret}";
+	public static final String TOKEN_URL = "/oauth2/token?grant_type={grant_type}&appid={appid}&code={code}&state={state}&client_id={client_id}&client_secret={client_secret}&remote_address={remote_address}&session_id={session_id}";
 
 	private String prefixUrl = PREFIX_URL;
 
@@ -89,6 +90,9 @@ public class WeChatOffiaccountCodeHttpFilter extends HttpFilter {
 				throw new AppidWeChatOffiaccountException("未匹配到 appid");
 			}
 
+			String remoteHost = request.getRemoteHost();
+			HttpSession session = request.getSession(false);
+
 			RestTemplate restTemplate = new RestTemplate();
 			Map<String, String> uriVariables = new HashMap<>(8);
 			uriVariables.put("grant_type", grantType);
@@ -98,6 +102,8 @@ public class WeChatOffiaccountCodeHttpFilter extends HttpFilter {
 			uriVariables.put("scope", scope);
 			uriVariables.put("client_id", clientId);
 			uriVariables.put("client_secret", clientSecret);
+			uriVariables.put("remote_address", remoteHost);
+			uriVariables.put("session_id", session == null ? "" : session.getId());
 
 			HttpHeaders httpHeaders = new HttpHeaders();
 			httpHeaders.setContentType(MediaType.APPLICATION_JSON);

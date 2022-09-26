@@ -21,6 +21,7 @@ import org.springframework.security.oauth2.server.authorization.oidc.authenticat
 import org.springframework.security.oauth2.server.authorization.token.DefaultOAuth2TokenContext;
 import org.springframework.security.oauth2.server.authorization.token.OAuth2TokenContext;
 import org.springframework.security.oauth2.server.authorization.token.OAuth2TokenGenerator;
+import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
 
@@ -92,6 +93,13 @@ public class OAuth2WeChatOffiaccountAuthenticationProvider implements Authentica
 		OAuth2ClientAuthenticationToken clientPrincipal = OAuth2AuthenticationProviderUtils
 				.getAuthenticatedClientElseThrowInvalidClient(grantAuthenticationToken);
 		RegisteredClient registeredClient = clientPrincipal.getRegisteredClient();
+
+		// 自定义微信公众号用户的IP与SessionId
+		String remoteAddress = grantAuthenticationToken.getRemoteAddress();
+		String sessionId = grantAuthenticationToken.getSessionId();
+		sessionId = "".equals(sessionId) ? null : sessionId;
+		WebAuthenticationDetails webAuthenticationDetails = new WebAuthenticationDetails(remoteAddress, sessionId);
+		clientPrincipal.setDetails(webAuthenticationDetails);
 
 		if (registeredClient == null) {
 			OAuth2Error error = new OAuth2Error(OAuth2ErrorCodes.SERVER_ERROR, "注册客户不能为空", null);
