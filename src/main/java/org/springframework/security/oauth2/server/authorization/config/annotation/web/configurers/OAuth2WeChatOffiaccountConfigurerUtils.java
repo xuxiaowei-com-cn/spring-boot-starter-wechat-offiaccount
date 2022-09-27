@@ -9,6 +9,8 @@ import org.springframework.security.oauth2.server.authorization.token.OAuth2Toke
 
 import java.util.Collections;
 
+import static org.springframework.security.oauth2.server.authorization.authentication.OAuth2WeChatOffiaccountAuthenticationToken.WECHAT_OFFIACCOUNT;
+
 /**
  * 微信公众号 OAuth 2.0 配置器的实用方法。
  *
@@ -35,7 +37,7 @@ public class OAuth2WeChatOffiaccountConfigurerUtils {
 					WeChatOffiaccountService.class);
 			if (wechatOffiaccountService == null) {
 				wechatOffiaccountService = new InMemoryWeChatOffiaccountService(Collections.emptyList(),
-						"wechat_offiaccount");
+						WECHAT_OFFIACCOUNT.getValue());
 			}
 		}
 		return wechatOffiaccountService;
