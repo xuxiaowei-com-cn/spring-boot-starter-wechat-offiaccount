@@ -46,6 +46,7 @@ import java.util.Set;
  * @see OAuth2TokenRevocationAuthenticationProvider
  * @see OidcUserInfoAuthenticationProvider
  */
+@SuppressWarnings("AlibabaClassNamingShouldBeCamel")
 public class OAuth2WeChatOffiaccountAuthenticationProvider implements AuthenticationProvider {
 
 	/**

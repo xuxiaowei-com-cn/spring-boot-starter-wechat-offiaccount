@@ -53,12 +53,15 @@ public interface WeChatOffiaccountService {
 
 	/**
 	 * 根据 AppID(公众号ID)、code、jsCode2SessionUrl 获取Token
-	 * @param appid AppID(公众号ID)
+	 * @param appid AppID(公众号ID)，<a href=
+	 * "https://developers.weixin.qq.com/doc/offiaccount/OA_Web_Apps/Wechat_webpage_authorization.html">微信网页开发
+	 * /网页授权</a>
 	 * @param code 授权码，<a href=
 	 * "https://developers.weixin.qq.com/doc/offiaccount/OA_Web_Apps/Wechat_webpage_authorization.html#0">第一步：用户同意授权，获取code</a>
 	 * @param accessTokenUrl <a href=
 	 * "https://developers.weixin.qq.com/doc/offiaccount/OA_Web_Apps/Wechat_webpage_authorization.html">通过
 	 * code 换取网页授权 access_token 的 URL</a>
+	 * @return 返回 微信授权结果
 	 */
 	WeChatOffiaccountTokenResponse getAccessTokenResponse(String appid, String code, String accessTokenUrl);
 

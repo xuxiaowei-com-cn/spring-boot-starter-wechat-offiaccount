@@ -17,6 +17,7 @@ import java.util.List;
  * @since 0.0.1
  */
 @Configuration
+@SuppressWarnings("AlibabaClassNamingShouldBeCamel")
 public class OAuth2WeChatOffiaccountConfiguration {
 
 	private WeChatOffiaccountProperties weChatOffiaccountProperties;

@@ -6,6 +6,7 @@ package org.springframework.security.oauth2.server.authorization.web.authenticat
  * @author xuxiaowei
  * @since 0.0.1
  */
+@SuppressWarnings("AlibabaClassNamingShouldBeCamel")
 public class OAuth2WeChatOffiaccountEndpointUtils {
 
 	/**

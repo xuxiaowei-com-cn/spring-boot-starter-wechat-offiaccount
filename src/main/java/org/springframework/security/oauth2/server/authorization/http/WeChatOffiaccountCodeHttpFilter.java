@@ -7,6 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
+import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.security.oauth2.core.endpoint.*;
+import org.springframework.security.oauth2.core.http.converter.OAuth2AccessTokenResponseHttpMessageConverter;
 import org.springframework.security.oauth2.server.authorization.exception.AppidWeChatOffiaccountException;
 import org.springframework.security.oauth2.server.authorization.properties.WeChatOffiaccountProperties;
 import org.springframework.stereotype.Component;
@@ -24,6 +27,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static org.springframework.security.oauth2.server.authorization.authentication.OAuth2WeChatOffiaccountAuthenticationToken.WECHAT_OFFIACCOUNT;
+
 /**
  * 微信公众号授权码接收服务
  *
@@ -31,6 +36,9 @@ import java.util.Map;
  * "https://developers.weixin.qq.com/doc/offiaccount/OA_Web_Apps/Wechat_webpage_authorization.html">网页授权</a>
  * @author xuxiaowei
  * @since 0.0.1
+ * @see OAuth2AccessTokenResponse
+ * @see DefaultOAuth2AccessTokenResponseMapConverter
+ * @see DefaultMapOAuth2AccessTokenResponseConverter
  */
 @Slf4j
 @Data
@@ -40,8 +48,16 @@ public class WeChatOffiaccountCodeHttpFilter extends HttpFilter {
 
 	public static final String PREFIX_URL = "/wechat-offiaccount/code";
 
+	/**
+	 * @see <a href=
+	 * "https://developers.weixin.qq.com/doc/offiaccount/OA_Web_Apps/Wechat_webpage_authorization.html">微信网页开发
+	 * /网页授权</a>
+	 */
 	public static final String TOKEN_URL = "/oauth2/token?grant_type={grant_type}&appid={appid}&code={code}&state={state}&client_id={client_id}&client_secret={client_secret}&remote_address={remote_address}&session_id={session_id}";
 
+	/**
+	 * 微信公众号使用code获取授权凭证URL前缀
+	 */
 	private String prefixUrl = PREFIX_URL;
 
 	private WeChatOffiaccountProperties weChatOffiaccountProperties;
@@ -62,9 +78,9 @@ public class WeChatOffiaccountCodeHttpFilter extends HttpFilter {
 			log.info("requestUri：{}", requestUri);
 
 			String appid = requestUri.replace(prefixUrl + "/", "");
-			String code = request.getParameter("code");
-			String state = request.getParameter("state");
-			String grantType = "wechat_offiaccount";
+			String code = request.getParameter(OAuth2ParameterNames.CODE);
+			String state = request.getParameter(OAuth2ParameterNames.STATE);
+			String grantType = WECHAT_OFFIACCOUNT.getValue();
 
 			String clientId = null;
 			String clientSecret = null;
@@ -95,27 +111,29 @@ public class WeChatOffiaccountCodeHttpFilter extends HttpFilter {
 
 			RestTemplate restTemplate = new RestTemplate();
 			Map<String, String> uriVariables = new HashMap<>(8);
-			uriVariables.put("grant_type", grantType);
-			uriVariables.put("appid", appid);
-			uriVariables.put("code", code);
-			uriVariables.put("state", state);
-			uriVariables.put("scope", scope);
-			uriVariables.put("client_id", clientId);
-			uriVariables.put("client_secret", clientSecret);
-			uriVariables.put("remote_address", remoteHost);
-			uriVariables.put("session_id", session == null ? "" : session.getId());
+			uriVariables.put(OAuth2ParameterNames.GRANT_TYPE, grantType);
+			uriVariables.put(OAuth2WeChatOffiaccountParameterNames.APPID, appid);
+			uriVariables.put(OAuth2ParameterNames.CODE, code);
+			uriVariables.put(OAuth2ParameterNames.STATE, state);
+			uriVariables.put(OAuth2ParameterNames.SCOPE, scope);
+			uriVariables.put(OAuth2ParameterNames.CLIENT_ID, clientId);
+			uriVariables.put(OAuth2ParameterNames.CLIENT_SECRET, clientSecret);
+			uriVariables.put(OAuth2WeChatOffiaccountParameterNames.REMOTE_ADDRESS, remoteHost);
+			uriVariables.put(OAuth2WeChatOffiaccountParameterNames.SESSION_ID, session == null ? "" : session.getId());
 
 			HttpHeaders httpHeaders = new HttpHeaders();
 			httpHeaders.setContentType(MediaType.APPLICATION_JSON);
 			HttpEntity<?> httpEntity = new HttpEntity<>(httpHeaders);
 
-			@SuppressWarnings("all")
-			Map<String, String> post = restTemplate.postForObject(tokenUrlPrefix + TOKEN_URL, httpEntity, Map.class,
-					uriVariables);
+			List<HttpMessageConverter<?>> messageConverters = restTemplate.getMessageConverters();
+			messageConverters.add(5, new OAuth2AccessTokenResponseHttpMessageConverter());
 
-			String accessToken = post.get("access_token");
+			OAuth2AccessTokenResponse oauth2AccessTokenResponse = restTemplate.postForObject(tokenUrlPrefix + TOKEN_URL,
+					httpEntity, OAuth2AccessTokenResponse.class, uriVariables);
 
-			response.sendRedirect("http://a.com?access_token=" + accessToken);
+			assert oauth2AccessTokenResponse != null;
+
+			response.sendRedirect("http://a.com?access_token=" + oauth2AccessTokenResponse.getAccessToken());
 
 			return;
 		}

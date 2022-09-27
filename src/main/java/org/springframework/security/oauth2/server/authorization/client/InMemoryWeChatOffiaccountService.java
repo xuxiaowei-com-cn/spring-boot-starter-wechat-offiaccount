@@ -48,10 +48,16 @@ public class InMemoryWeChatOffiaccountService implements WeChatOffiaccountServic
 
 	/**
 	 * 认证信息
+	 * @param clientPrincipal 经过身份验证的客户端主体
+	 * @param additionalParameters 附加参数
+	 * @param details 登录信息
 	 * @param appid AppID(公众号ID)
+	 * @param code 授权码，<a href=
+	 * "https://developers.weixin.qq.com/doc/offiaccount/OA_Web_Apps/Wechat_webpage_authorization.html#0">第一步：用户同意授权，获取code</a>
 	 * @param openid 用户唯一标识，<a href=
 	 * "https://developers.weixin.qq.com/doc/offiaccount/OA_Web_Apps/Wechat_webpage_authorization.html">微信网页开发
 	 * /网页授权</a>
+	 * @param credentials 证书
 	 * @param unionid 多账户用户唯一标识，<a href=
 	 * "https://developers.weixin.qq.com/doc/offiaccount/OA_Web_Apps/Wechat_webpage_authorization.html">微信网页开发
 	 * /网页授权</a>
@@ -67,7 +73,6 @@ public class InMemoryWeChatOffiaccountService implements WeChatOffiaccountServic
 	 * @param scope {@link OAuth2ParameterNames#SCOPE}，授权范围，<a href=
 	 * "https://developers.weixin.qq.com/doc/offiaccount/OA_Web_Apps/Wechat_webpage_authorization.html">微信网页开发
 	 * /网页授权</a>
-	 * @param details 登录信息
 	 * @return 返回 认证信息
 	 */
 	@Override
