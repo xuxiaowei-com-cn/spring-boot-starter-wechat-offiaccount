@@ -72,7 +72,7 @@ public class OAuth2WeChatOffiaccountAuthenticationProvider implements Authentica
 	private WeChatOffiaccountService wechatOffiaccountService;
 
 	public OAuth2WeChatOffiaccountAuthenticationProvider(HttpSecurity builder) {
-		Assert.notNull(builder, "HttpSecurityBuilder<?> 不能为空");
+		Assert.notNull(builder, "HttpSecurity 不能为空");
 		this.builder = builder;
 		builder.authenticationProvider(this);
 	}
