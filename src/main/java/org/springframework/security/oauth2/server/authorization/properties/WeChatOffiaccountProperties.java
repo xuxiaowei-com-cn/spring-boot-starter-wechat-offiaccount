@@ -71,6 +71,16 @@ public class WeChatOffiaccountProperties {
 		 */
 		private String scope;
 
+		/**
+		 * 登录成功后重定向的URL
+		 */
+		private String successUrl;
+
+		/**
+		 * 登录成功后重定向的URL OAuth2.1 授权 Token Name
+		 */
+		private String parameterName = "access_token";
+
 	}
 
 }

@@ -2,8 +2,12 @@ package org.springframework.security.oauth2.server.authorization.client;
 
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.oauth2.core.endpoint.OAuth2AccessTokenResponse;
 import org.springframework.security.oauth2.core.endpoint.OAuth2ParameterNames;
+import org.springframework.security.oauth2.server.authorization.properties.WeChatOffiaccountProperties;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.Map;
 
 /**
@@ -64,5 +68,17 @@ public interface WeChatOffiaccountService {
 	 * @return 返回 微信授权结果
 	 */
 	WeChatOffiaccountTokenResponse getAccessTokenResponse(String appid, String code, String accessTokenUrl);
+
+	/**
+	 * 授权成功重定向方法
+	 * @param request 请求
+	 * @param response 响应
+	 * @param uriVariables 参数
+	 * @param oauth2AccessTokenResponse OAuth2.1 授权 Token
+	 * @param weChatOffiaccount 微信公众号配置
+	 */
+	void sendRedirect(HttpServletRequest request, HttpServletResponse response, Map<String, String> uriVariables,
+			OAuth2AccessTokenResponse oauth2AccessTokenResponse,
+			WeChatOffiaccountProperties.WeChatOffiaccount weChatOffiaccount);
 
 }

@@ -9,15 +9,21 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
+import org.springframework.security.oauth2.core.OAuth2AccessToken;
 import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
 import org.springframework.security.oauth2.core.OAuth2Error;
+import org.springframework.security.oauth2.core.endpoint.OAuth2AccessTokenResponse;
 import org.springframework.security.oauth2.core.endpoint.OAuth2ParameterNames;
 import org.springframework.security.oauth2.core.endpoint.OAuth2WeChatOffiaccountParameterNames;
+import org.springframework.security.oauth2.server.authorization.exception.RedirectWeChatOffiaccountException;
 import org.springframework.security.oauth2.server.authorization.properties.WeChatOffiaccountProperties;
 import org.springframework.security.oauth2.server.authorization.web.authentication.OAuth2WeChatOffiaccountEndpointUtils;
 import org.springframework.util.Assert;
 import org.springframework.web.client.RestTemplate;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -143,6 +149,30 @@ public class InMemoryWeChatOffiaccountService implements WeChatOffiaccountServic
 		}
 
 		return weChatOffiaccountTokenResponse;
+	}
+
+	/**
+	 * 授权成功重定向方法
+	 * @param request 请求
+	 * @param response 响应
+	 * @param uriVariables 参数
+	 * @param oauth2AccessTokenResponse OAuth2.1 授权 Token
+	 * @param weChatOffiaccount 微信公众号配置
+	 */
+	@Override
+	public void sendRedirect(HttpServletRequest request, HttpServletResponse response, Map<String, String> uriVariables,
+			OAuth2AccessTokenResponse oauth2AccessTokenResponse,
+			WeChatOffiaccountProperties.WeChatOffiaccount weChatOffiaccount) {
+
+		OAuth2AccessToken accessToken = oauth2AccessTokenResponse.getAccessToken();
+
+		try {
+			response.sendRedirect(weChatOffiaccount.getSuccessUrl() + "?" + weChatOffiaccount.getParameterName() + "="
+					+ accessToken.getTokenValue());
+		}
+		catch (IOException e) {
+			throw new RedirectWeChatOffiaccountException("微信公众号重定向异常", e);
+		}
 	}
 
 	/**

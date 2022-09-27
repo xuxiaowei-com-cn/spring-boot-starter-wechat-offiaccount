@@ -12,4 +12,8 @@ public class WeChatOffiaccountException extends RuntimeException {
 		super(message);
 	}
 
+	public WeChatOffiaccountException(String message, Throwable cause) {
+		super(message, cause);
+	}
+
 }

@@ -11,7 +11,6 @@ public class OAuth2WeChatOffiaccountEndpointUtils {
 
 	/**
 	 *
-	 * 。
 	 */
 	public static final String AUTH_CODE2SESSION_URI = "https://developers.weixin.qq.com/doc/offiaccount/OA_Web_Apps/Wechat_webpage_authorization.html";
 

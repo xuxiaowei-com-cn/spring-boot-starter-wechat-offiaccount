@@ -10,6 +10,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.security.oauth2.core.endpoint.*;
 import org.springframework.security.oauth2.core.http.converter.OAuth2AccessTokenResponseHttpMessageConverter;
+import org.springframework.security.oauth2.server.authorization.client.WeChatOffiaccountService;
 import org.springframework.security.oauth2.server.authorization.exception.AppidWeChatOffiaccountException;
 import org.springframework.security.oauth2.server.authorization.properties.WeChatOffiaccountProperties;
 import org.springframework.stereotype.Component;
@@ -62,9 +63,16 @@ public class WeChatOffiaccountCodeHttpFilter extends HttpFilter {
 
 	private WeChatOffiaccountProperties weChatOffiaccountProperties;
 
+	private WeChatOffiaccountService weChatOffiaccountService;
+
 	@Autowired
 	public void setWeChatOffiaccountProperties(WeChatOffiaccountProperties weChatOffiaccountProperties) {
 		this.weChatOffiaccountProperties = weChatOffiaccountProperties;
+	}
+
+	@Autowired
+	public void setWeChatOffiaccountService(WeChatOffiaccountService weChatOffiaccountService) {
+		this.weChatOffiaccountService = weChatOffiaccountService;
 	}
 
 	@Override
@@ -92,9 +100,11 @@ public class WeChatOffiaccountCodeHttpFilter extends HttpFilter {
 			}
 
 			boolean include = false;
+			WeChatOffiaccountProperties.WeChatOffiaccount offiaccount = null;
 			for (WeChatOffiaccountProperties.WeChatOffiaccount weChatOffiaccount : list) {
 				if (appid.equals(weChatOffiaccount.getAppid())) {
 					include = true;
+					offiaccount = weChatOffiaccount;
 					clientId = weChatOffiaccount.getClientId();
 					clientSecret = weChatOffiaccount.getClientSecret();
 					tokenUrlPrefix = weChatOffiaccount.getTokenUrlPrefix();
@@ -133,8 +143,8 @@ public class WeChatOffiaccountCodeHttpFilter extends HttpFilter {
 
 			assert oauth2AccessTokenResponse != null;
 
-			response.sendRedirect("http://a.com?access_token=" + oauth2AccessTokenResponse.getAccessToken());
-
+			weChatOffiaccountService.sendRedirect(request, response, uriVariables, oauth2AccessTokenResponse,
+					offiaccount);
 			return;
 		}
 
