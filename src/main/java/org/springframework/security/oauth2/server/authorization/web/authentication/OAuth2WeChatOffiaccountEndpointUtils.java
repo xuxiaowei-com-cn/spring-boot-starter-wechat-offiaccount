@@ -10,7 +10,7 @@ package org.springframework.security.oauth2.server.authorization.web.authenticat
 public class OAuth2WeChatOffiaccountEndpointUtils {
 
 	/**
-	 *
+	 * 微信网页开发 /网页授权
 	 */
 	public static final String AUTH_CODE2SESSION_URI = "https://developers.weixin.qq.com/doc/offiaccount/OA_Web_Apps/Wechat_webpage_authorization.html";
 
