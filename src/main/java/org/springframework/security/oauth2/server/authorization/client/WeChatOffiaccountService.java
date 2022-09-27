@@ -2,6 +2,7 @@ package org.springframework.security.oauth2.server.authorization.client;
 
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.oauth2.core.endpoint.OAuth2ParameterNames;
 
 import java.util.Map;
 
@@ -22,14 +23,27 @@ public interface WeChatOffiaccountService {
 	 * @param additionalParameters 附加参数
 	 * @param details 登录信息
 	 * @param appid AppID(公众号ID)
-	 * @param code
-	 * @param openid - code2Session</a>
+	 * @param code 授权码，<a href=
+	 * "https://developers.weixin.qq.com/doc/offiaccount/OA_Web_Apps/Wechat_webpage_authorization.html#0">第一步：用户同意授权，获取code</a>
+	 * @param openid 用户唯一标识，<a href=
+	 * "https://developers.weixin.qq.com/doc/offiaccount/OA_Web_Apps/Wechat_webpage_authorization.html">微信网页开发
+	 * /网页授权</a>
 	 * @param credentials 证书
-	 * @param unionid 机制说明</a>。
-	 * @param accessToken
-	 * @param refreshToken
-	 * @param expiresIn
-	 * @param scope
+	 * @param unionid 多账户用户唯一标识，<a href=
+	 * "https://developers.weixin.qq.com/doc/offiaccount/OA_Web_Apps/Wechat_webpage_authorization.html">微信网页开发
+	 * /网页授权</a>
+	 * @param accessToken 授权凭证，<a href=
+	 * "https://developers.weixin.qq.com/doc/offiaccount/OA_Web_Apps/Wechat_webpage_authorization.html">微信网页开发
+	 * /网页授权</a>
+	 * @param refreshToken 刷新凭证，<a href=
+	 * "https://developers.weixin.qq.com/doc/offiaccount/OA_Web_Apps/Wechat_webpage_authorization.html">微信网页开发
+	 * /网页授权</a>
+	 * @param expiresIn 过期时间，<a href=
+	 * "https://developers.weixin.qq.com/doc/offiaccount/OA_Web_Apps/Wechat_webpage_authorization.html">微信网页开发
+	 * /网页授权</a>
+	 * @param scope {@link OAuth2ParameterNames#SCOPE}，授权范围，<a href=
+	 * "https://developers.weixin.qq.com/doc/offiaccount/OA_Web_Apps/Wechat_webpage_authorization.html">微信网页开发
+	 * /网页授权</a>
 	 * @return 返回 认证信息
 	 */
 	AbstractAuthenticationToken authenticationToken(Authentication clientPrincipal,
@@ -40,8 +54,11 @@ public interface WeChatOffiaccountService {
 	/**
 	 * 根据 AppID(公众号ID)、code、jsCode2SessionUrl 获取Token
 	 * @param appid AppID(公众号ID)
-	 * @param code
-	 * @param accessTokenUrl
+	 * @param code 授权码，<a href=
+	 * "https://developers.weixin.qq.com/doc/offiaccount/OA_Web_Apps/Wechat_webpage_authorization.html#0">第一步：用户同意授权，获取code</a>
+	 * @param accessTokenUrl <a href=
+	 * "https://developers.weixin.qq.com/doc/offiaccount/OA_Web_Apps/Wechat_webpage_authorization.html">通过
+	 * code 换取网页授权 access_token 的 URL</a>
 	 */
 	WeChatOffiaccountTokenResponse getAccessTokenResponse(String appid, String code, String accessTokenUrl);
 

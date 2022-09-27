@@ -11,29 +11,44 @@ public interface OAuth2WeChatOffiaccountParameterNames {
 
 	/**
 	 * AppID(公众号ID)
+	 *
+	 * @see <a href=
+	 * "https://developers.weixin.qq.com/doc/offiaccount/OA_Web_Apps/Wechat_webpage_authorization.html">微信网页开发
+	 * /网页授权</a>
 	 */
 	String APPID = "appid";
 
 	/**
 	 * AppSecret(公众号密钥)
+	 *
+	 * @see <a href=
+	 * "https://developers.weixin.qq.com/doc/offiaccount/OA_Web_Apps/Wechat_webpage_authorization.html">微信网页开发
+	 * /网页授权</a>
 	 */
 	String SECRET = "secret";
 
 	/**
-	 *
-	 *
 	 * @see OAuth2ParameterNames#CODE
+	 *
+	 * @see <a href=
+	 * "https://developers.weixin.qq.com/doc/offiaccount/OA_Web_Apps/Wechat_webpage_authorization.html">微信网页开发
+	 * /网页授权</a>
 	 */
 	String CODE = "code";
 
 	/**
 	 * 用户唯一标识
 	 *
+	 * @see <a href=
+	 * "https://developers.weixin.qq.com/doc/offiaccount/OA_Web_Apps/Wechat_webpage_authorization.html">微信网页开发
+	 * /网页授权</a>
 	 */
 	String OPENID = "openid";
 
 	/**
-	
+	 * @see <a href=
+	 * "https://developers.weixin.qq.com/doc/offiaccount/OA_Web_Apps/Wechat_webpage_authorization.html">微信网页开发
+	 * /网页授权</a>
 	 */
 	String UNIONID = "unionid";
 

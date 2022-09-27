@@ -37,7 +37,8 @@ public class OAuth2WeChatOffiaccountAuthenticationToken extends OAuth2Authorizat
 	private final String appid;
 
 	/**
-	
+	 * @see <a href=
+	 * "https://developers.weixin.qq.com/doc/offiaccount/OA_Web_Apps/Wechat_webpage_authorization.html#0">第一步：用户同意授权，获取code</a>
 	 */
 	@Getter
 	private final String code;
@@ -59,8 +60,11 @@ public class OAuth2WeChatOffiaccountAuthenticationToken extends OAuth2Authorizat
 	 * @param clientPrincipal 经过身份验证的客户端主体
 	 * @param additionalParameters 附加参数
 	 * @param appid AppID(公众号ID)
-	 * @param code
-	 * @param scope {@link OAuth2ParameterNames#SCOPE}
+	 * @param code 授权码，<a href=
+	 * "https://developers.weixin.qq.com/doc/offiaccount/OA_Web_Apps/Wechat_webpage_authorization.html#0">第一步：用户同意授权，获取code</a>
+	 * @param scope {@link OAuth2ParameterNames#SCOPE}，授权范围，<a href=
+	 * "https://developers.weixin.qq.com/doc/offiaccount/OA_Web_Apps/Wechat_webpage_authorization.html">微信网页开发
+	 * /网页授权</a>
 	 */
 	public OAuth2WeChatOffiaccountAuthenticationToken(Authentication clientPrincipal,
 			Map<String, Object> additionalParameters, String appid, String code, String scope, String remoteAddress,
