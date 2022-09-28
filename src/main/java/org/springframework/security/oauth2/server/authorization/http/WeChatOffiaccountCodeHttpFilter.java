@@ -49,11 +49,6 @@ public class WeChatOffiaccountCodeHttpFilter extends HttpFilter {
 
 	public static final String PREFIX_URL = "/wechat-offiaccount/code";
 
-	/**
-	 * @see <a href=
-	 * "https://developers.weixin.qq.com/doc/offiaccount/OA_Web_Apps/Wechat_webpage_authorization.html">微信网页开发
-	 * /网页授权</a>
-	 */
 	public static final String TOKEN_URL = "/oauth2/token?grant_type={grant_type}&appid={appid}&code={code}&state={state}&client_id={client_id}&client_secret={client_secret}&remote_address={remote_address}&session_id={session_id}";
 
 	/**
