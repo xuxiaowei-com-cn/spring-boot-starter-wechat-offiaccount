@@ -70,7 +70,7 @@ public class OAuth2WeChatOffiaccountAuthenticationProvider implements Authentica
 	private OAuth2TokenGenerator<? extends OAuth2Token> tokenGenerator;
 
 	@Setter
-	private WeChatOffiaccountService wechatOffiaccountService;
+	private WeChatOffiaccountService weChatOffiaccountService;
 
 	public OAuth2WeChatOffiaccountAuthenticationProvider(HttpSecurity builder) {
 		Assert.notNull(builder, "HttpSecurity 不能为空");
@@ -119,7 +119,7 @@ public class OAuth2WeChatOffiaccountAuthenticationProvider implements Authentica
 			throw new OAuth2AuthenticationException(error);
 		}
 
-		WeChatOffiaccountTokenResponse weChatOffiaccountTokenResponse = wechatOffiaccountService
+		WeChatOffiaccountTokenResponse weChatOffiaccountTokenResponse = weChatOffiaccountService
 				.getAccessTokenResponse(appid, code, ACCESS_TOKEN_URL);
 
 		String openid = weChatOffiaccountTokenResponse.getOpenid();
@@ -134,7 +134,7 @@ public class OAuth2WeChatOffiaccountAuthenticationProvider implements Authentica
 		builder.principalName(openid);
 		builder.authorizationGrantType(OAuth2WeChatOffiaccountAuthenticationToken.WECHAT_OFFIACCOUNT);
 
-		AbstractAuthenticationToken abstractAuthenticationToken = wechatOffiaccountService.authenticationToken(
+		AbstractAuthenticationToken abstractAuthenticationToken = weChatOffiaccountService.authenticationToken(
 				clientPrincipal, additionalParameters, grantAuthenticationToken.getDetails(), appid, code, openid, null,
 				unionid, accessToken, refreshToken, expiresIn, scope);
 
@@ -217,8 +217,8 @@ public class OAuth2WeChatOffiaccountAuthenticationProvider implements Authentica
 			tokenGenerator = OAuth2WeChatOffiaccountConfigurerUtils.getTokenGenerator(builder);
 		}
 
-		if (wechatOffiaccountService == null) {
-			wechatOffiaccountService = OAuth2WeChatOffiaccountConfigurerUtils.getWeChatOffiaccountService(builder);
+		if (weChatOffiaccountService == null) {
+			weChatOffiaccountService = OAuth2WeChatOffiaccountConfigurerUtils.getWeChatOffiaccountService(builder);
 		}
 	}
 
