@@ -5,11 +5,10 @@ import org.springframework.security.oauth2.core.OAuth2Token;
 import org.springframework.security.oauth2.server.authorization.OAuth2AuthorizationService;
 import org.springframework.security.oauth2.server.authorization.client.InMemoryWeChatOffiaccountService;
 import org.springframework.security.oauth2.server.authorization.client.WeChatOffiaccountService;
+import org.springframework.security.oauth2.server.authorization.properties.WeChatOffiaccountProperties;
 import org.springframework.security.oauth2.server.authorization.token.OAuth2TokenGenerator;
 
 import java.util.Collections;
-
-import static org.springframework.security.oauth2.server.authorization.authentication.OAuth2WeChatOffiaccountAuthenticationToken.WECHAT_OFFIACCOUNT;
 
 /**
  * 微信公众号 OAuth 2.0 配置器的实用方法。
@@ -36,8 +35,12 @@ public class OAuth2WeChatOffiaccountConfigurerUtils {
 			wechatOffiaccountService = OAuth2ConfigurerUtils.getOptionalBean(httpSecurity,
 					WeChatOffiaccountService.class);
 			if (wechatOffiaccountService == null) {
+
+				WeChatOffiaccountProperties weChatOffiaccountProperties = OAuth2ConfigurerUtils
+						.getOptionalBean(httpSecurity, WeChatOffiaccountProperties.class);
+
 				wechatOffiaccountService = new InMemoryWeChatOffiaccountService(Collections.emptyList(),
-						WECHAT_OFFIACCOUNT.getValue());
+						weChatOffiaccountProperties.getDefaultRole());
 			}
 		}
 		return wechatOffiaccountService;
