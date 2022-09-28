@@ -1,4 +1,4 @@
-org.springframework.security.config.annotation.web.configurers.oauth2.server.authorization.OAuth2WeChatOffiaccountConfiguration
+org.springframework.security.oauth2.server.authorization.config.annotation.web.configuration.OAuth2WeChatOffiaccountConfiguration
 org.springframework.security.oauth2.server.authorization.http.WeChatOffiaccountAuthorizeHttpFilter
 org.springframework.security.oauth2.server.authorization.http.WeChatOffiaccountCodeHttpFilter
 org.springframework.security.oauth2.server.authorization.properties.WeChatOffiaccountProperties
