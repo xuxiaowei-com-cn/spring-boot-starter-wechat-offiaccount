@@ -71,14 +71,15 @@ public class OAuth2WeChatOffiaccountAuthenticationConverter implements Authentic
 					&& !key.equals(OAuth2ParameterNames.CODE) && !key.equals(OAuth2ParameterNames.REDIRECT_URI)
 					&& !key.equals(OAuth2ParameterNames.CLIENT_SECRET)
 					&& !key.equals(OAuth2WeChatOffiaccountParameterNames.APPID)
-					&& !key.equals(OAuth2ParameterNames.SCOPE) && !"remote_address".equals(key)
-					&& !"session_id".equals(key)) {
+					&& !key.equals(OAuth2ParameterNames.SCOPE)
+					&& !OAuth2WeChatOffiaccountParameterNames.REMOTE_ADDRESS.equals(key)
+					&& !OAuth2WeChatOffiaccountParameterNames.SESSION_ID.equals(key)) {
 				additionalParameters.put(key, value.get(0));
 			}
 		});
 
-		String remoteAddress = request.getParameter("remote_address");
-		String sessionId = request.getParameter("session_id");
+		String remoteAddress = request.getParameter(OAuth2WeChatOffiaccountParameterNames.REMOTE_ADDRESS);
+		String sessionId = request.getParameter(OAuth2WeChatOffiaccountParameterNames.SESSION_ID);
 
 		return new OAuth2WeChatOffiaccountAuthenticationToken(clientPrincipal, additionalParameters, appid, code, scope,
 				remoteAddress, sessionId);
