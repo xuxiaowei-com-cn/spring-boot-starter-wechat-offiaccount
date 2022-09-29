@@ -85,31 +85,12 @@ public class WeChatOffiaccountCodeHttpFilter extends HttpFilter {
 			String state = request.getParameter(OAuth2ParameterNames.STATE);
 			String grantType = WECHAT_OFFIACCOUNT.getValue();
 
-			String clientId = null;
-			String clientSecret = null;
-			String tokenUrlPrefix = null;
-			String scope = null;
-			List<WeChatOffiaccountProperties.WeChatOffiaccount> list = weChatOffiaccountProperties.getList();
-			if (list == null) {
-				throw new AppidWeChatOffiaccountException("appid 未配置");
-			}
-
-			boolean include = false;
-			WeChatOffiaccountProperties.WeChatOffiaccount offiaccount = null;
-			for (WeChatOffiaccountProperties.WeChatOffiaccount weChatOffiaccount : list) {
-				if (appid.equals(weChatOffiaccount.getAppid())) {
-					include = true;
-					offiaccount = weChatOffiaccount;
-					clientId = weChatOffiaccount.getClientId();
-					clientSecret = weChatOffiaccount.getClientSecret();
-					tokenUrlPrefix = weChatOffiaccount.getTokenUrlPrefix();
-					scope = weChatOffiaccount.getScope();
-				}
-			}
-
-			if (!include) {
-				throw new AppidWeChatOffiaccountException("未匹配到 appid");
-			}
+			WeChatOffiaccountProperties.WeChatOffiaccount offiaccount = weChatOffiaccountService
+					.getWeChatOffiaccountByAppid(appid);
+			String clientId = offiaccount.getClientId();
+			String clientSecret = offiaccount.getClientSecret();
+			String tokenUrlPrefix = offiaccount.getTokenUrlPrefix();
+			String scope = offiaccount.getScope();
 
 			String remoteHost = request.getRemoteHost();
 			HttpSession session = request.getSession(false);
