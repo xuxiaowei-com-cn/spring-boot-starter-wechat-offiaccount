@@ -8,8 +8,6 @@ import org.springframework.security.oauth2.server.authorization.client.WeChatOff
 import org.springframework.security.oauth2.server.authorization.properties.WeChatOffiaccountProperties;
 import org.springframework.security.oauth2.server.authorization.token.OAuth2TokenGenerator;
 
-import java.util.Collections;
-
 /**
  * 微信公众号 OAuth 2.0 配置器的实用方法。
  *
@@ -37,9 +35,7 @@ public class OAuth2WeChatOffiaccountConfigurerUtils {
 			if (wechatOffiaccountService == null) {
 				WeChatOffiaccountProperties weChatOffiaccountProperties = OAuth2ConfigurerUtils
 						.getOptionalBean(httpSecurity, WeChatOffiaccountProperties.class);
-
-				wechatOffiaccountService = new InMemoryWeChatOffiaccountService(Collections.emptyList(),
-						weChatOffiaccountProperties.getDefaultRole());
+				wechatOffiaccountService = new InMemoryWeChatOffiaccountService(weChatOffiaccountProperties);
 			}
 		}
 		return wechatOffiaccountService;

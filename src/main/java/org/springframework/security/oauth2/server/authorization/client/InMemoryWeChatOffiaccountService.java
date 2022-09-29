@@ -15,15 +15,20 @@ import org.springframework.security.oauth2.core.OAuth2Error;
 import org.springframework.security.oauth2.core.endpoint.OAuth2AccessTokenResponse;
 import org.springframework.security.oauth2.core.endpoint.OAuth2ParameterNames;
 import org.springframework.security.oauth2.core.endpoint.OAuth2WeChatOffiaccountParameterNames;
+import org.springframework.security.oauth2.server.authorization.exception.AppidWeChatOffiaccountException;
+import org.springframework.security.oauth2.server.authorization.exception.RedirectUriWeChatOffiaccountException;
 import org.springframework.security.oauth2.server.authorization.exception.RedirectWeChatOffiaccountException;
 import org.springframework.security.oauth2.server.authorization.properties.WeChatOffiaccountProperties;
 import org.springframework.security.oauth2.server.authorization.web.authentication.OAuth2WeChatOffiaccountEndpointUtils;
 import org.springframework.util.Assert;
+import org.springframework.util.StringUtils;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.util.UriUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -37,19 +42,10 @@ import java.util.Map;
  */
 public class InMemoryWeChatOffiaccountService implements WeChatOffiaccountService {
 
-	private final List<WeChatOffiaccountProperties.WeChatOffiaccount> weChatOffiaccountList;
+	private final WeChatOffiaccountProperties weChatOffiaccountProperties;
 
-	/**
-	 * 默认微信公众号的权限
-	 * <p>
-	 * 若要自定义用户的权限，请开发者自己实现 {@link WeChatOffiaccountService}
-	 */
-	private final String defaultRole;
-
-	public InMemoryWeChatOffiaccountService(List<WeChatOffiaccountProperties.WeChatOffiaccount> weChatOffiaccountList,
-			String defaultRole) {
-		this.weChatOffiaccountList = weChatOffiaccountList;
-		this.defaultRole = defaultRole;
+	public InMemoryWeChatOffiaccountService(WeChatOffiaccountProperties weChatOffiaccountProperties) {
+		this.weChatOffiaccountProperties = weChatOffiaccountProperties;
 	}
 
 	/**
@@ -87,7 +83,7 @@ public class InMemoryWeChatOffiaccountService implements WeChatOffiaccountServic
 			Object credentials, String unionid, String accessToken, String refreshToken, Integer expiresIn,
 			String scope) {
 		List<GrantedAuthority> authorities = new ArrayList<>();
-		SimpleGrantedAuthority authority = new SimpleGrantedAuthority(defaultRole);
+		SimpleGrantedAuthority authority = new SimpleGrantedAuthority(weChatOffiaccountProperties.getDefaultRole());
 		authorities.add(authority);
 		User user = new User(openid, accessToken, authorities);
 
@@ -176,6 +172,45 @@ public class InMemoryWeChatOffiaccountService implements WeChatOffiaccountServic
 	}
 
 	/**
+	 * 根据 appid 获取 微信公众号属性配置
+	 * @param appid 公众号ID
+	 * @return 返回 微信公众号属性配置
+	 */
+	@Override
+	public WeChatOffiaccountProperties.WeChatOffiaccount getWeChatOffiaccountByAppid(String appid) {
+		List<WeChatOffiaccountProperties.WeChatOffiaccount> list = weChatOffiaccountProperties.getList();
+		if (list == null) {
+			throw new AppidWeChatOffiaccountException("appid 未配置");
+		}
+
+		for (WeChatOffiaccountProperties.WeChatOffiaccount weChatOffiaccount : list) {
+			if (appid.equals(weChatOffiaccount.getAppid())) {
+				return weChatOffiaccount;
+			}
+		}
+
+		throw new AppidWeChatOffiaccountException("未匹配到 appid");
+	}
+
+	/**
+	 * 根据 appid 获取重定向的地址
+	 * @param appid 公众号ID
+	 * @return 返回重定向的地址
+	 */
+	@Override
+	public String getRedirectUriByAppid(String appid) {
+		WeChatOffiaccountProperties.WeChatOffiaccount weChatOffiaccount = getWeChatOffiaccountByAppid(appid);
+		String redirectUriPrefix = weChatOffiaccount.getRedirectUriPrefix();
+
+		if (StringUtils.hasText(redirectUriPrefix)) {
+			return UriUtils.encode(redirectUriPrefix + "/" + appid, StandardCharsets.UTF_8);
+		}
+		else {
+			throw new RedirectUriWeChatOffiaccountException("重定向地址前缀不能为空");
+		}
+	}
+
+	/**
 	 * 根据 AppID(公众号ID) 查询 AppSecret(公众号密钥)
 	 * @param appid AppID(公众号ID)，<a href=
 	 * "https://developers.weixin.qq.com/doc/offiaccount/OA_Web_Apps/Wechat_webpage_authorization.html">微信网页开发
@@ -186,14 +221,8 @@ public class InMemoryWeChatOffiaccountService implements WeChatOffiaccountServic
 	 */
 	public String getSecretByAppid(String appid) {
 		Assert.notNull(appid, "appid 不能为 null");
-		for (WeChatOffiaccountProperties.WeChatOffiaccount weChatOffiaccount : weChatOffiaccountList) {
-			if (appid.equals(weChatOffiaccount.getAppid())) {
-				return weChatOffiaccount.getSecret();
-			}
-		}
-		OAuth2Error error = new OAuth2Error(OAuth2WeChatOffiaccountEndpointUtils.INVALID_ERROR_CODE, "未找到 secret",
-				OAuth2WeChatOffiaccountEndpointUtils.AUTH_CODE2SESSION_URI);
-		throw new OAuth2AuthenticationException(error);
+		WeChatOffiaccountProperties.WeChatOffiaccount weChatOffiaccount = getWeChatOffiaccountByAppid(appid);
+		return weChatOffiaccount.getSecret();
 	}
 
 }

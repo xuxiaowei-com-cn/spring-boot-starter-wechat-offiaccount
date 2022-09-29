@@ -81,4 +81,18 @@ public interface WeChatOffiaccountService {
 			OAuth2AccessTokenResponse oauth2AccessTokenResponse,
 			WeChatOffiaccountProperties.WeChatOffiaccount weChatOffiaccount);
 
+	/**
+	 * 根据 appid 获取 微信公众号属性配置
+	 * @param appid 公众号ID
+	 * @return 返回 微信公众号属性配置
+	 */
+	WeChatOffiaccountProperties.WeChatOffiaccount getWeChatOffiaccountByAppid(String appid);
+
+	/**
+	 * 根据 appid 获取重定向的地址
+	 * @param appid 公众号ID
+	 * @return 返回重定向的地址
+	 */
+	String getRedirectUriByAppid(String appid);
+
 }
