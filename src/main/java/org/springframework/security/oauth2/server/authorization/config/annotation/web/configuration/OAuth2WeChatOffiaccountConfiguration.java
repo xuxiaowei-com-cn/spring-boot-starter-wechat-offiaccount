@@ -8,8 +8,6 @@ import org.springframework.security.oauth2.server.authorization.client.InMemoryW
 import org.springframework.security.oauth2.server.authorization.client.WeChatOffiaccountService;
 import org.springframework.security.oauth2.server.authorization.properties.WeChatOffiaccountProperties;
 
-import java.util.List;
-
 /**
  * 微信公众号 配置
  *
@@ -31,10 +29,7 @@ public class OAuth2WeChatOffiaccountConfiguration {
 	@Bean
 	@ConditionalOnMissingBean
 	public WeChatOffiaccountService weChatOffiaccountService() {
-		List<WeChatOffiaccountProperties.WeChatOffiaccount> weChatOffiaccountPropertiesList = weChatOffiaccountProperties
-				.getList();
-		String defaultRole = weChatOffiaccountProperties.getDefaultRole();
-		return new InMemoryWeChatOffiaccountService(weChatOffiaccountPropertiesList, defaultRole);
+		return new InMemoryWeChatOffiaccountService(weChatOffiaccountProperties);
 	}
 
 }

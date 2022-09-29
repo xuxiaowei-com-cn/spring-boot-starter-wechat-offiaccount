@@ -10,18 +10,12 @@ import lombok.EqualsAndHashCode;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.oauth2.core.endpoint.OAuth2ParameterNames;
-import org.springframework.security.oauth2.server.authorization.exception.AppidWeChatOffiaccountException;
-import org.springframework.security.oauth2.server.authorization.exception.RedirectUriWeChatOffiaccountException;
-import org.springframework.security.oauth2.server.authorization.properties.WeChatOffiaccountProperties;
+import org.springframework.security.oauth2.server.authorization.client.WeChatOffiaccountService;
 import org.springframework.stereotype.Component;
 import org.springframework.util.AntPathMatcher;
-import org.springframework.util.StringUtils;
-import org.springframework.web.util.UriUtils;
 
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
-import java.util.List;
 import java.util.UUID;
 
 /**
@@ -66,11 +60,11 @@ public class WeChatOffiaccountAuthorizeHttpFilter extends HttpFilter {
 	 */
 	public static final String SNSAPI_USERINFO = "snsapi_userinfo";
 
-	private WeChatOffiaccountProperties weChatOffiaccountProperties;
+	private WeChatOffiaccountService weChatOffiaccountService;
 
 	@Autowired
-	public void setWeChatOffiaccountProperties(WeChatOffiaccountProperties weChatOffiaccountProperties) {
-		this.weChatOffiaccountProperties = weChatOffiaccountProperties;
+	public void setWeChatOffiaccountService(WeChatOffiaccountService weChatOffiaccountService) {
+		this.weChatOffiaccountService = weChatOffiaccountService;
 	}
 
 	/**
@@ -90,29 +84,7 @@ public class WeChatOffiaccountAuthorizeHttpFilter extends HttpFilter {
 
 			String appid = requestUri.replace(prefixUrl + "/", "");
 
-			List<WeChatOffiaccountProperties.WeChatOffiaccount> list = weChatOffiaccountProperties.getList();
-			if (list == null) {
-				throw new AppidWeChatOffiaccountException("appid 未配置");
-			}
-
-			String redirectUri = null;
-			boolean include = false;
-			for (WeChatOffiaccountProperties.WeChatOffiaccount weChatOffiaccount : list) {
-				if (appid.equals(weChatOffiaccount.getAppid())) {
-					include = true;
-					String redirectUriPrefix = weChatOffiaccount.getRedirectUriPrefix();
-					if (StringUtils.hasText(redirectUriPrefix)) {
-						redirectUri = UriUtils.encode(redirectUriPrefix + "/" + appid, StandardCharsets.UTF_8);
-					}
-					else {
-						throw new RedirectUriWeChatOffiaccountException("重定向地址前缀不能为空");
-					}
-				}
-			}
-
-			if (!include) {
-				throw new AppidWeChatOffiaccountException("未匹配到 appid");
-			}
+			String redirectUri = weChatOffiaccountService.getRedirectUriByAppid(appid);
 
 			String scope = request.getParameter(OAuth2ParameterNames.SCOPE);
 			if (!Arrays.asList(SNSAPI_BASE, SNSAPI_USERINFO).contains(scope)) {
