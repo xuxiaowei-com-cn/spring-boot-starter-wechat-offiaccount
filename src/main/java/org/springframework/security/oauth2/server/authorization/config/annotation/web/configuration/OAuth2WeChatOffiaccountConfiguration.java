@@ -14,6 +14,7 @@ import java.util.List;
  * 微信公众号 配置
  *
  * @author xuxiaowei
+ * @see OAuth2AuthorizationServerConfiguration
  * @since 0.0.1
  */
 @Configuration
