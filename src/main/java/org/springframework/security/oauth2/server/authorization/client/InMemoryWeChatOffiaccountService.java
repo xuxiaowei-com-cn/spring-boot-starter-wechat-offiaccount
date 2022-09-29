@@ -190,7 +190,8 @@ public class InMemoryWeChatOffiaccountService implements WeChatOffiaccountServic
 	public WeChatOffiaccountProperties.WeChatOffiaccount getWeChatOffiaccountByAppid(String appid) {
 		List<WeChatOffiaccountProperties.WeChatOffiaccount> list = weChatOffiaccountProperties.getList();
 		if (list == null) {
-			throw new AppidWeChatOffiaccountException("appid 未配置");
+			OAuth2Error error = new OAuth2Error(OAuth2WeChatOffiaccountEndpointUtils.ERROR_CODE, "appid 未配置", null);
+			throw new AppidWeChatOffiaccountException(error);
 		}
 
 		for (WeChatOffiaccountProperties.WeChatOffiaccount weChatOffiaccount : list) {
@@ -198,8 +199,8 @@ public class InMemoryWeChatOffiaccountService implements WeChatOffiaccountServic
 				return weChatOffiaccount;
 			}
 		}
-
-		throw new AppidWeChatOffiaccountException("未匹配到 appid");
+		OAuth2Error error = new OAuth2Error(OAuth2WeChatOffiaccountEndpointUtils.ERROR_CODE, "未匹配到 appid", null);
+		throw new AppidWeChatOffiaccountException(error);
 	}
 
 	/**
@@ -245,7 +246,8 @@ public class InMemoryWeChatOffiaccountService implements WeChatOffiaccountServic
 			return UriUtils.encode(redirectUriPrefix + "/" + appid, StandardCharsets.UTF_8);
 		}
 		else {
-			throw new RedirectUriWeChatOffiaccountException("重定向地址前缀不能为空");
+			OAuth2Error error = new OAuth2Error(OAuth2WeChatOffiaccountEndpointUtils.ERROR_CODE, "重定向地址前缀不能为空", null);
+			throw new RedirectUriWeChatOffiaccountException(error);
 		}
 	}
 
