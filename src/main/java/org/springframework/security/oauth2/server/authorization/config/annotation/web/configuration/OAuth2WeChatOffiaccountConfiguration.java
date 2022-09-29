@@ -1,4 +1,4 @@
-package org.springframework.security.oauth2.server.authorization.config.annotation.web.configuration.authorization;
+package org.springframework.security.oauth2.server.authorization.config.annotation.web.configuration;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -14,6 +14,7 @@ import java.util.List;
  * 微信公众号 配置
  *
  * @author xuxiaowei
+ * @see OAuth2AuthorizationServerConfiguration
  * @since 0.0.1
  */
 @Configuration
