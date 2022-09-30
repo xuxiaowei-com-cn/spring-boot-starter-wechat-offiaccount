@@ -97,7 +97,7 @@
   </a>
 
   <a target="_blank" href="https://github.com/xuxiaowei-com-cn/spring-boot-starter-wechat-offiaccount/blob/main/pom.xml">
-    <img alt="Spring Boot" src="https://img.shields.io/static/v1?logo=Spring Boot&message=3.0.0&color=blue">
+    <img alt="Spring Boot" src="https://img.shields.io/static/v1?logo=Spring Boot&message=3.0.0-M5">
   </a>
 
   <a target="_blank" href="https://github.com/xuxiaowei-com-cn/spring-boot-starter-wechat-offiaccount/blob/main/pom.xml">
