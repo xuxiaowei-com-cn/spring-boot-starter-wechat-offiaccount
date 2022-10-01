@@ -9,6 +9,7 @@ import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.authentication.WeChatOffiaccountAuthenticationToken;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -20,11 +21,14 @@ import org.springframework.security.oauth2.core.endpoint.OAuth2AccessTokenRespon
 import org.springframework.security.oauth2.core.endpoint.OAuth2ParameterNames;
 import org.springframework.security.oauth2.core.endpoint.OAuth2WeChatOffiaccountParameterNames;
 import org.springframework.security.oauth2.core.http.converter.OAuth2AccessTokenResponseHttpMessageConverter;
+import org.springframework.security.oauth2.server.authorization.config.annotation.web.configurers.OAuth2AuthorizationServerConfigurer;
+import org.springframework.security.oauth2.server.authorization.config.annotation.web.configurers.OAuth2TokenEndpointConfigurer;
 import org.springframework.security.oauth2.server.authorization.exception.AppidWeChatOffiaccountException;
 import org.springframework.security.oauth2.server.authorization.exception.RedirectUriWeChatOffiaccountException;
 import org.springframework.security.oauth2.server.authorization.exception.RedirectWeChatOffiaccountException;
 import org.springframework.security.oauth2.server.authorization.properties.WeChatOffiaccountProperties;
 import org.springframework.security.oauth2.server.authorization.web.authentication.OAuth2WeChatOffiaccountEndpointUtils;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
 import org.springframework.web.client.RestTemplate;
@@ -81,7 +85,10 @@ public class InMemoryWeChatOffiaccountService implements WeChatOffiaccountServic
 	 * "https://developers.weixin.qq.com/doc/offiaccount/OA_Web_Apps/Wechat_webpage_authorization.html">微信网页开发
 	 * /网页授权</a>
 	 * @return 返回 认证信息
-	 * @throws OAuth2AuthenticationException OAuth 2.1 可处理的异常
+	 * @throws OAuth2AuthenticationException OAuth 2.1 可处理的异常，可使用
+	 * {@link OAuth2AuthorizationServerConfigurer#tokenEndpoint(Customizer)} 中的
+	 * {@link OAuth2TokenEndpointConfigurer#errorResponseHandler(AuthenticationFailureHandler)}
+	 * 拦截处理此异常
 	 */
 	@Override
 	public AbstractAuthenticationToken authenticationToken(Authentication clientPrincipal,
@@ -116,7 +123,10 @@ public class InMemoryWeChatOffiaccountService implements WeChatOffiaccountServic
 	 * "https://developers.weixin.qq.com/doc/offiaccount/OA_Web_Apps/Wechat_webpage_authorization.html">通过
 	 * code 换取网页授权 access_token 的 URL</a>
 	 * @return 返回 微信授权结果
-	 * @throws OAuth2AuthenticationException OAuth 2.1 可处理的异常
+	 * @throws OAuth2AuthenticationException OAuth 2.1 可处理的异常，可使用
+	 * {@link OAuth2AuthorizationServerConfigurer#tokenEndpoint(Customizer)} 中的
+	 * {@link OAuth2TokenEndpointConfigurer#errorResponseHandler(AuthenticationFailureHandler)}
+	 * 拦截处理此异常
 	 */
 	@Override
 	public WeChatOffiaccountTokenResponse getAccessTokenResponse(String appid, String code, String accessTokenUrl) {
@@ -161,7 +171,10 @@ public class InMemoryWeChatOffiaccountService implements WeChatOffiaccountServic
 	 * @param uriVariables 参数
 	 * @param oauth2AccessTokenResponse OAuth2.1 授权 Token
 	 * @param weChatOffiaccount 微信公众号配置
-	 * @throws OAuth2AuthenticationException OAuth 2.1 可处理的异常
+	 * @throws OAuth2AuthenticationException OAuth 2.1 可处理的异常，可使用
+	 * {@link OAuth2AuthorizationServerConfigurer#tokenEndpoint(Customizer)} 中的
+	 * {@link OAuth2TokenEndpointConfigurer#errorResponseHandler(AuthenticationFailureHandler)}
+	 * 拦截处理此异常
 	 */
 	@Override
 	public void sendRedirect(HttpServletRequest request, HttpServletResponse response, Map<String, String> uriVariables,
@@ -184,7 +197,10 @@ public class InMemoryWeChatOffiaccountService implements WeChatOffiaccountServic
 	 * 根据 appid 获取 微信公众号属性配置
 	 * @param appid 公众号ID
 	 * @return 返回 微信公众号属性配置
-	 * @throws OAuth2AuthenticationException OAuth 2.1 可处理的异常
+	 * @throws OAuth2AuthenticationException OAuth 2.1 可处理的异常，可使用
+	 * {@link OAuth2AuthorizationServerConfigurer#tokenEndpoint(Customizer)} 中的
+	 * {@link OAuth2TokenEndpointConfigurer#errorResponseHandler(AuthenticationFailureHandler)}
+	 * 拦截处理此异常
 	 */
 	@Override
 	public WeChatOffiaccountProperties.WeChatOffiaccount getWeChatOffiaccountByAppid(String appid) {
@@ -211,7 +227,10 @@ public class InMemoryWeChatOffiaccountService implements WeChatOffiaccountServic
 	 * @param tokenUrl Token URL
 	 * @param uriVariables 参数
 	 * @return 返回 OAuth 2.1 授权 Token
-	 * @throws OAuth2AuthenticationException OAuth 2.1 可处理的异常
+	 * @throws OAuth2AuthenticationException OAuth 2.1 可处理的异常，可使用
+	 * {@link OAuth2AuthorizationServerConfigurer#tokenEndpoint(Customizer)} 中的
+	 * {@link OAuth2TokenEndpointConfigurer#errorResponseHandler(AuthenticationFailureHandler)}
+	 * 拦截处理此异常
 	 */
 	@Override
 	public OAuth2AccessTokenResponse getOAuth2AccessTokenResponse(HttpServletRequest request,
@@ -235,7 +254,10 @@ public class InMemoryWeChatOffiaccountService implements WeChatOffiaccountServic
 	 * 根据 appid 获取重定向的地址
 	 * @param appid 公众号ID
 	 * @return 返回重定向的地址
-	 * @throws OAuth2AuthenticationException OAuth 2.1 可处理的异常
+	 * @throws OAuth2AuthenticationException OAuth 2.1 可处理的异常，可使用
+	 * {@link OAuth2AuthorizationServerConfigurer#tokenEndpoint(Customizer)} 中的
+	 * {@link OAuth2TokenEndpointConfigurer#errorResponseHandler(AuthenticationFailureHandler)}
+	 * 拦截处理此异常
 	 */
 	@Override
 	public String getRedirectUriByAppid(String appid) throws OAuth2AuthenticationException {
