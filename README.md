@@ -132,8 +132,6 @@
 
 ## [代码格式规范 spring-javaformat](https://github.com/spring-io/spring-javaformat)
 
-## [示例项目](https://gitee.com/xuxiaowei-com-cn/wechat-offiaccount-example)
-
 - IntelliJ IDEA
   -
   项目添加 [io.spring.javaformat:spring-javaformat-maven-plugin](https://repo1.maven.org/maven2/io/spring/javaformat/spring-javaformat-maven-plugin)
@@ -146,6 +144,8 @@
   ```shell
   mvn spring-javaformat:apply
   ```
+
+## [示例项目](https://gitee.com/xuxiaowei-com-cn/wechat-offiaccount-example)
 
 ## 参考文档
 
