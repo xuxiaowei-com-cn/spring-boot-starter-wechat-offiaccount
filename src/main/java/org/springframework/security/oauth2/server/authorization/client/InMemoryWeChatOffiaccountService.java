@@ -136,7 +136,7 @@ public class InMemoryWeChatOffiaccountService implements WeChatOffiaccountServic
 		String secret = getSecretByAppid(appid);
 
 		uriVariables.put(OAuth2WeChatOffiaccountParameterNames.SECRET, secret);
-		uriVariables.put(OAuth2WeChatOffiaccountParameterNames.CODE, code);
+		uriVariables.put(OAuth2ParameterNames.CODE, code);
 
 		RestTemplate restTemplate = new RestTemplate();
 
