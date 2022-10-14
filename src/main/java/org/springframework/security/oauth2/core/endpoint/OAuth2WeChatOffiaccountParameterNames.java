@@ -29,15 +29,6 @@ public interface OAuth2WeChatOffiaccountParameterNames {
 	String SECRET = "secret";
 
 	/**
-	 * @see OAuth2ParameterNames#CODE
-	 *
-	 * @see <a href=
-	 * "https://developers.weixin.qq.com/doc/offiaccount/OA_Web_Apps/Wechat_webpage_authorization.html">微信网页开发
-	 * /网页授权</a>
-	 */
-	String CODE = "code";
-
-	/**
 	 * 用户唯一标识
 	 *
 	 * @see <a href=
