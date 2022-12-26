@@ -91,7 +91,7 @@ public class OAuth2WeChatOffiaccountAuthenticationToken extends OAuth2Authorizat
 			Map<String, Object> additionalParameters, String appid, String code, String scope, String remoteAddress,
 			String sessionId) {
 		super(OAuth2WeChatOffiaccountAuthenticationToken.WECHAT_OFFIACCOUNT, clientPrincipal, additionalParameters);
-		Assert.hasText(code, "appid 不能为空");
+		Assert.hasText(appid, "appid 不能为空");
 		Assert.hasText(code, "code 不能为空");
 		this.appid = appid;
 		this.code = code;
