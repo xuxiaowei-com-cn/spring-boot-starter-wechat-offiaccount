@@ -9,9 +9,9 @@ package org.springframework.security.oauth2.server.authorization.properties;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -20,9 +20,12 @@ package org.springframework.security.oauth2.server.authorization.properties;
  * #L%
  */
 
+import lombok.AccessLevel;
 import lombok.Data;
+import lombok.Getter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 
 import java.util.List;
 
@@ -46,6 +49,22 @@ public class WeChatOffiaccountProperties {
 	 * 默认微信公众号的权限
 	 */
 	private String defaultRole;
+
+	/**
+	 * 默认 AppID
+	 */
+	@Getter(AccessLevel.NONE)
+	private String defaultAppid;
+
+	public String getDefaultAppid() {
+		if (StringUtils.hasText(defaultAppid)) {
+			return defaultAppid;
+		}
+		if (list.size() > 0) {
+			return list.get(0).appid;
+		}
+		return null;
+	}
 
 	/**
 	 * 微信公众号属性配置类
