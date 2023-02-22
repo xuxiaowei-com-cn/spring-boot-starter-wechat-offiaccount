@@ -98,7 +98,7 @@ public class WeChatOffiaccountCodeHttpFilter extends HttpFilter {
 			String grantType = WECHAT_OFFIACCOUNT.getValue();
 
 			WeChatOffiaccountProperties.WeChatOffiaccount offiaccount = weChatOffiaccountService
-					.getWeChatOffiaccountByAppid(appid);
+				.getWeChatOffiaccountByAppid(appid);
 			String clientId = offiaccount.getClientId();
 			String clientSecret = offiaccount.getClientSecret();
 			String tokenUrlPrefix = offiaccount.getTokenUrlPrefix();
@@ -119,7 +119,7 @@ public class WeChatOffiaccountCodeHttpFilter extends HttpFilter {
 			uriVariables.put(OAuth2WeChatOffiaccountParameterNames.SESSION_ID, session == null ? "" : session.getId());
 
 			OAuth2AccessTokenResponse oauth2AccessTokenResponse = weChatOffiaccountService
-					.getOAuth2AccessTokenResponse(request, response, tokenUrlPrefix, TOKEN_URL, uriVariables);
+				.getOAuth2AccessTokenResponse(request, response, tokenUrlPrefix, TOKEN_URL, uriVariables);
 			if (oauth2AccessTokenResponse == null) {
 				return;
 			}
