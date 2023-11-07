@@ -9,9 +9,9 @@ package org.springframework.security.oauth2.server.authorization.client;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -135,6 +135,8 @@ public interface WeChatOffiaccountService {
 	 * 获取 OAuth 2.1 授权 Token（如果不想执行此方法后面的内容，可返回 null）
 	 * @param request 请求
 	 * @param response 响应
+	 * @param clientId 客户ID
+	 * @param clientSecret 客户凭证
 	 * @param tokenUrlPrefix 获取 Token URL 前缀
 	 * @param tokenUrl Token URL
 	 * @param uriVariables 参数
@@ -145,8 +147,8 @@ public interface WeChatOffiaccountService {
 	 * 拦截处理此异常
 	 */
 	OAuth2AccessTokenResponse getOAuth2AccessTokenResponse(HttpServletRequest request, HttpServletResponse response,
-			String tokenUrlPrefix, String tokenUrl, Map<String, String> uriVariables)
-			throws OAuth2AuthenticationException;
+			String clientId, String clientSecret, String tokenUrlPrefix, String tokenUrl,
+			Map<String, String> uriVariables) throws OAuth2AuthenticationException;
 
 	/**
 	 * 根据 appid 获取重定向的地址
